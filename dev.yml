@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:latest
+
+  postgres:
+    image: postgres:latest
+
+  first:
+    build:
+      context: .
+      dockerfile: ./compose/first/Dockerfile-dev
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend/first:/opt/project
+    ports:
+      - "5000:5000"
+
+  second:
+    build:
+      context: .
+      dockerfile: ./compose/second/Dockerfile-dev
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend/second:/opt/project
+    ports:
+      - "6000:6000"
+
+
+
