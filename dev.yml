@@ -4,30 +4,33 @@ services:
   redis:
     image: redis:latest
 
-  postgres:
-    image: postgres:latest
-
-  first:
+  front:
     build:
       context: .
-      dockerfile: ./compose/first/Dockerfile-dev
+      dockerfile: ./compose/django/Dockerfile-dev
     depends_on:
-      - postgres
+      - redis
+      - back
     volumes:
-      - ./backend/first:/opt/project
+      - ./backend/dashboard:/opt/project
+    command: python manage.py runserver 0.0.0.0:8888
+    links:
+      - redis
+      - back
     ports:
-      - "5000:5000"
+      - "8888:8888"
 
-  second:
+  back:
     build:
       context: .
-      dockerfile: ./compose/second/Dockerfile-dev
+      dockerfile: ./compose/django/Dockerfile-dev
     depends_on:
-      - postgres
+      - redis
     volumes:
-      - ./backend/second:/opt/project
+      - ./backend/backend:/opt/project
+    command: python manage.py runserver 0.0.0.0:7777
+    links:
+      - redis
     ports:
-      - "6000:6000"
-
-
+      - "7777:7777"
 

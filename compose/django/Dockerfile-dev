@@ -1,0 +1,19 @@
+FROM python:2.7.11
+ENV PYTHONUNBUFFERED 1
+
+# update packages
+RUN apt-get update && apt-get install -y --no-install-recommends unzip \
+  && apt-get -y autoremove \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY ./compose/django/entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r//' /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Requirements have to be pulled and installed here, otherwise caching won't work
+COPY ./backend/dashboard/requirements /requirements
+RUN pip install -r /requirements/local.txt
+
+WORKDIR /opt/project
+
+ENTRYPOINT ["/entrypoint.sh"]
