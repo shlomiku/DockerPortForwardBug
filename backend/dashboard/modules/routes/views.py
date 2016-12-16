@@ -4,7 +4,7 @@ from httplib import OK
 from django.http import HttpResponse
 
 def list(request):
-    return HttpResponse({'status': 'ok'}, status=OK)
+    return HttpResponse({'front server': 'ok'}, status=OK)
 
 
 def add(request):

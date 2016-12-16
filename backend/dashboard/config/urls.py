@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.views import defaults as default_views
 
 urlpatterns = [
-                  url(r'^$', include('modules.routes.urls', namespace='routes', app_name="routes"), name="routes"),
+                  url(r'^front/$', include('modules.routes.urls', namespace='routes', app_name="routes"), name="routes"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
