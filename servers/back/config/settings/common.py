@@ -177,16 +177,6 @@ BROKER_URL = env('CELERY_BROKER_URL', default='django://')
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
 
-# Your common stuff: Below this line define 3rd party library settings
-CORS_URLS_REGEX = '^/api/.*$'
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    '127.0.0.1:3000',  # angular dashboard
-    '127.0.0.1:8100',  # ionic app
-    'localhost:8100',  # ionic app
-)
-
 # SECURITY WARNING: keep the secret key used in production secret! And don't use debug=True in production!
 SECRET_KEY = 'imasecret'
 

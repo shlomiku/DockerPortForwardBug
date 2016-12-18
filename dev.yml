@@ -5,14 +5,14 @@ services:
     image: redis:latest
 
   front:
+    volumes:
+      - ./servers/front:/opt/project
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile-dev
     depends_on:
       - redis
       - back
-    volumes:
-      - ./backend/dashboard:/opt/project
     command: python manage.py runserver 0.0.0.0:8888
     links:
       - redis
@@ -21,13 +21,13 @@ services:
       - "8888:8888"
 
   back:
+    volumes:
+      - ./servers/back:/opt/project
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile-dev
     depends_on:
       - redis
-    volumes:
-      - ./backend/backend:/opt/project
     command: python manage.py runserver 0.0.0.0:7777
     links:
       - redis
