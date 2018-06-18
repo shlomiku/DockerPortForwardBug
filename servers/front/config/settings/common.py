@@ -168,7 +168,8 @@ redis_host = "redis" # os.environ.get('REDIS_HOST', 'localhost')
 CHANNEL_LAYERS = {
     "default": {
         # This example app uses the Redis channel layer implementation asgi_redis
-        "BACKEND": "asgi_redis.RedisChannelLayer",
+        # "BACKEND": "asgi_redis.RedisChannelLayer",
+        "BACKEND": "asgi_redis.RedisLocalChannelLayer",
         "CONFIG": {
             "hosts": [(redis_host, 6379)],
         },
